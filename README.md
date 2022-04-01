@@ -77,3 +77,9 @@ $ rustcoder start <contest-name>
 ```
 
 該当コンテストページから必要な情報をスクレイピングによって抽出し、適切に生成する。
+
+## 解答提出
+
+```
+# rustcoder submit <problem-id>
+```
