@@ -1,7 +1,5 @@
 use clap::{Parser, Subcommand};
 
-use rustcoder::actions;
-
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 #[clap(propagate_version = true)]
@@ -29,12 +27,13 @@ enum Action {
 fn main() {
     let rustcoder = RustCoder::parse();
 
-    match &rustcoder.action {
-        Action::Dbg => actions::dbg(),
-        Action::Init => actions::init(),
-        Action::Login => actions::login(),
-        Action::Strat => actions::start(),
-        Action::Submit => actions::submit(),
-        Action::Test => actions::test(),
+    use rustcoder::actions::*;
+    match rustcoder.action {
+        Action::Dbg => dbg(),
+        Action::Init => init(),
+        Action::Login => login(),
+        Action::Strat => start(),
+        Action::Submit => submit(),
+        Action::Test => test(),
     }
 }
