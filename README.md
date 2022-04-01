@@ -1,4 +1,4 @@
-# AtCoder Tools for Rust
+# rustcoder
 RustでAtCoderに参加する際のローカル環境を快適にするためのコマンドラインツール。
 
 何番煎じかは知りませんが、Rustの勉強がてら自分で実装してみたいと思った次第です。
