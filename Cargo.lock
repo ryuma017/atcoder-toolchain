@@ -3,15 +3,6 @@
 version = 3
 
 [[package]]
-name = "atcoder_toolchain"
-version = "0.1.0"
-dependencies = [
- "clap",
- "reqwest",
- "tokio",
-]
-
-[[package]]
 name = "atty"
 version = "0.2.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -658,6 +649,15 @@ dependencies = [
  "wasm-bindgen-futures",
  "web-sys",
  "winreg",
+]
+
+[[package]]
+name = "rustcoder"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "reqwest",
+ "tokio",
 ]
 
 [[package]]

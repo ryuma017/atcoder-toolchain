@@ -1,17 +1,17 @@
 use clap::{Parser, Subcommand};
 
-use atcoder_toolchain::tools;
+use rustcoder::actions;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
 #[clap(propagate_version = true)]
-struct AtCoderToolChain {
+struct RustCoder {
     #[clap(subcommand)]
-    tool: Tool,
+    action: Action,
 }
 
 #[derive(Subcommand)]
-enum Tool {
+enum Action {
     /// Debug sample case
     Dbg,
     /// Create workspace for AtCoder
@@ -27,14 +27,14 @@ enum Tool {
 }
 
 fn main() {
-    let actc = AtCoderToolChain::parse();
+    let rustcoder = RustCoder::parse();
 
-    match &actc.tool {
-        Tool::Dbg => tools::dbg(),
-        Tool::Init => tools::init(),
-        Tool::Login => tools::login(),
-        Tool::Strat => tools::start(),
-        Tool::Submit => tools::submit(),
-        Tool::Test => tools::test(),
+    match &rustcoder.action {
+        Action::Dbg => actions::dbg(),
+        Action::Init => actions::init(),
+        Action::Login => actions::login(),
+        Action::Strat => actions::start(),
+        Action::Submit => actions::submit(),
+        Action::Test => actions::test(),
     }
 }
