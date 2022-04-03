@@ -8,6 +8,9 @@ description = "Convenient toolchain for AtCoder written in Rust"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+anyhow = "1.0.56"
 clap = { version = "3.1.6", features = ["derive"] }
-reqwest = "0.11"
+reqwest = { version = "0.11.10", features = ["cookies"] }
+scraper = "0.12.0"
+# serde = { version = "1.0.136", features = ["derive"] }
 tokio = { version = "1.17.0", features = ["full"] }

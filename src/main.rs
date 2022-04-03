@@ -1,4 +1,7 @@
+use anyhow::Result;
 use clap::{Parser, Subcommand};
+
+use rustcoder::actions::StartOptions;
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -17,23 +20,24 @@ enum Action {
     /// Login to AtCoder
     Login,
     /// Cerate new workspace for specified contest
-    Strat,
-    /// Submit solution
+    Start(StartOptions),
+    /// Submit solution source code
     Submit,
     /// Test sample case
     Test,
 }
 
-fn main() {
+#[tokio::main]
+async fn main() -> Result<()> {
     let rustcoder = RustCoder::parse();
 
     use rustcoder::actions::*;
     match rustcoder.action {
-        Action::Dbg => dbg(),
-        Action::Init => init(),
-        Action::Login => login(),
-        Action::Strat => start(),
-        Action::Submit => submit(),
-        Action::Test => test(),
+        Action::Dbg => Ok(()),   //dbg(),
+        Action::Init => Ok(()),  //init(),
+        Action::Login => Ok(()), //login(),
+        Action::Start(opt) => start(opt).await,
+        Action::Submit => Ok(()), //submit(),
+        Action::Test => Ok(()),   //test(),
     }
 }
