@@ -8,6 +8,6 @@ pub mod test;
 pub use dbg::dbg;
 pub use init::init;
 pub use login::login;
-pub use start::start;
+pub use start::{start, StartOptions};
 pub use submit::submit;
 pub use test::test;
