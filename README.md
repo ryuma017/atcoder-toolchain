@@ -8,12 +8,9 @@ RustでAtCoderに参加する際のローカル環境を快適にするための
 
 実装予定の機能
 
-・*マスト(できそうなやつ)*
 - [ ] テストケースデータの抽出
     - [ ] ローカルテスト
     - [ ] ローカルデバッグ
-
-・*できたら(難しそう)*
 - [ ] ワークスペースを新規作成
     - [ ] GitHubへの自動プッシュスクリプト生成
     - [ ] `target` を共有するための `.cargo/config.toml` を生成。
@@ -36,7 +33,7 @@ RustでAtCoderに参加する際のローカル環境を快適にするための
 ## ローカルテスト
 
 ```
-$ rustcoder test <problem-id>
+$ rustcoder test <task-id>
 ```
 
 問題ページから入出力例を抽出して、テストを行う
@@ -44,7 +41,7 @@ $ rustcoder test <problem-id>
 ## ローカルデバッグ
 
 ```
-$ rustcoder dbg <problem-id>
+$ rustcoder dbg <task-id>
 ```
 
 問題ページから入出力例を抽出して、デバッグを行う
@@ -81,5 +78,5 @@ $ rustcoder start <contest-name>
 ## 解答提出
 
 ```
-# rustcoder submit <problem-id>
+# rustcoder submit <task-id>
 ```
