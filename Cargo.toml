@@ -5,8 +5,6 @@ edition = "2021"
 author = ["ryuma017 <tgcrym01@gmail.com>"]
 description = "Convenient toolchain for AtCoder written in Rust"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 anyhow = "1.0.56"
 clap = { version = "3.1.6", features = ["derive"] }
