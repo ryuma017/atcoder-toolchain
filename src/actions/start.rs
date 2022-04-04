@@ -5,8 +5,6 @@ use clap::Parser;
 
 use crate::atcoder::AtCoderScraper;
 
-// use crate::atcoder;
-
 #[derive(Parser)]
 pub struct StartOptions {
     contest_name: String,
@@ -27,6 +25,7 @@ pub async fn start(opt: StartOptions) -> Result<()> {
     let is_succeed = Command::new("cargo")
         .arg("new")
         .arg(&opt.contest_name)
+        .arg("--quiet") // do not print cargo log messages.
         .status()?
         .success();
     if !is_succeed {
@@ -48,7 +47,10 @@ pub async fn start(opt: StartOptions) -> Result<()> {
         )?;
     }
 
-    println!("Create {} project!", &opt.contest_name);
+    println!(
+        "    Created a new cargo package for `{}`",
+        &opt.contest_name
+    );
 
     Ok(())
 }

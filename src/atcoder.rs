@@ -36,6 +36,24 @@ impl AtCoderScraper {
         let tr_selector = Selector::parse("tr").unwrap();
         let td_selector = Selector::parse("td").unwrap();
 
+        // inner HTML of `tbody`
+        // <tr>
+        //   <td style="text-align:center">A</td>
+        //   <td style="text-align:center">?</td>
+        // </tr>
+        // <tr>
+        //   <td style="text-align:center">B</td>
+        //   <td style="text-align:center">?</td>
+        // </tr>
+        // <tr>
+        //   <td style="text-align:center">C</td>
+        //   <td style="text-align:center">?</td>
+        // </tr>
+        // <tr>
+        //   <td style="text-align:center">D</td>
+        //   <td style="text-align:center">?</td>
+        // </tr>
+
         Ok(document
             .select(&tbody_selector)
             // .inspect(|tbody| println!("tbody: {}", tbody.inner_html()))
