@@ -38,6 +38,12 @@ pub fn init(opt: InitOptions) -> Result<()> {
         bail!("Failed to initialize empty Git repository")
     }
 
+    // create `.gitignore`
+    fs::write(
+        dir.join(".gitignore"),
+        "/target\nCargo.lock\n/.cargo",
+    )?;
+
     Ok(())
 }
 
