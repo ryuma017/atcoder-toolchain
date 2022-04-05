@@ -1,7 +1,7 @@
-use std::{fs, path::Path};
+use std::{fs, path::Path, process::Command};
 
+use anyhow::{bail, Result};
 use clap::Parser;
-use anyhow::{Result, bail};
 
 #[derive(Parser)]
 pub struct InitOptions {
@@ -24,9 +24,19 @@ pub fn init(opt: InitOptions) -> Result<()> {
     // create `.cargo/config.toml`
     fs::write(
         dir.join(".cargo").join("config").with_extension("toml"),
-        "[build]\ntarget-dir = \"target\""
+        "[build]\ntarget-dir = \"target\"",
     )?;
 
+    // initialize empty git repository
+    let is_succeed = Command::new("git")
+        .arg("init")
+        .arg(dir)
+        .arg("--quiet")
+        .status()?
+        .success();
+    if !is_succeed {
+        bail!("Failed to initialize empty Git repository")
+    }
 
     Ok(())
 }

@@ -1,7 +1,7 @@
 use anyhow::Result;
 use clap::{Parser, Subcommand};
 
-use rustcoder::actions::{StartOptions, InitOptions};
+use rustcoder::actions::{InitOptions, StartOptions};
 
 #[derive(Parser)]
 #[clap(author, version, about, long_about = None)]
@@ -33,9 +33,9 @@ async fn main() -> Result<()> {
 
     use rustcoder::actions::*;
     match rustcoder.action {
-        Action::Dbg => Ok(()),   //dbg(),
-        Action::Init(opt) => init(opt),  //init(),
-        Action::Login => Ok(()), //login(),
+        Action::Dbg => Ok(()),          //dbg(),
+        Action::Init(opt) => init(opt), //init(),
+        Action::Login => Ok(()),        //login(),
         Action::Start(opt) => start(opt).await,
         Action::Submit => Ok(()), //submit(),
         Action::Test => Ok(()),   //test(),
