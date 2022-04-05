@@ -11,13 +11,22 @@ pub struct InitOptions {
 
 pub fn init(opt: InitOptions) -> Result<()> {
     // ここなんか汚い、直したほうが良さそう
-    let _dir = match &opt.directory[..] {
+    let dir = match &opt.directory[..] {
         "." => Path::new(&opt.directory),
         _ => {
             create_wordspace_dir(&opt.directory)?;
             Path::new(&opt.directory)
         }
     };
+
+    // create `.cargo` directory
+    fs::create_dir(dir.join(".cargo"))?;
+    // create `.cargo/config.toml`
+    fs::write(
+        dir.join(".cargo").join("config").with_extension("toml"),
+        "[build]\ntarget-dir = \"target\""
+    )?;
+
 
     Ok(())
 }
