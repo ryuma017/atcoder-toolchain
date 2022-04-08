@@ -14,7 +14,7 @@ pub fn init(opt: InitOptions) -> Result<()> {
     let dir = match &opt.directory[..] {
         "." => Path::new(&opt.directory),
         _ => {
-            create_wordspace_dir(&opt.directory)?;
+            create_workspace_dir(&opt.directory)?;
             Path::new(&opt.directory)
         }
     };
@@ -47,7 +47,7 @@ pub fn init(opt: InitOptions) -> Result<()> {
     Ok(())
 }
 
-fn create_wordspace_dir(path: &str) -> Result<()> {
+fn create_workspace_dir(path: &str) -> Result<()> {
     let dir = Path::new(path);
     if dir.is_dir() {
         bail!("`{}` is already exists", dir.display())
