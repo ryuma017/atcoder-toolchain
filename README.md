@@ -3,7 +3,6 @@ RustでAtCoderに参加する際のローカル環境を快適にするための
 
 何番煎じかは知りませんが、Rustの勉強がてら自分で実装してみたいと思った次第です。
 
-
 # Features
 
 実装予定の機能 / **TODO**
@@ -13,28 +12,39 @@ RustでAtCoderに参加する際のローカル環境を快適にするための
     - [x] Gitリポジトリ初期化
     - [x] `.gitignore`を生成
 - [x] コンテスト用のcargoパッケージ生成
-- [ ] テストケースデータの抽出
-    - [ ] ローカルテスト
-    - [ ] ローカルデバッグ
-- [ ] AtCoderへのログイン(セッション情報を保存)
-- [ ] 解答提出
-
 
 # Usage
 
-使用イメージ(予定)
+```
+$ rustcoder help
+rustcoder 0.1.0
+Convenient toolchain for AtCoder written in Rust
+
+USAGE:
+    rustcoder <SUBCOMMAND>
+
+OPTIONS:
+    -h, --help       Print help information
+    -V, --version    Print version information
+
+SUBCOMMANDS:
+    help     Print this message or the help of the given subcommand(s)
+    init     Create workspace for AtCoder
+    start    Cerate new workspace for specified contest
+```
 
 ## ワークスペース初期化
 
 ```
-$ rustcoder init
+$ rustcoder init [directory]
 ```
+
+default: atcoder_workspace
 
 以下のことを行う。
 
 - コンテストごとのcargoパッケージを並べるためのワークスペース生成
 - Gitリポジトリ初期化
-- 自動プッシュスクリプト の生成
 - `target`を共有するための `.cargo/config.toml`などを生成。
 
 ## コンテスト用のプロジェクト作成
@@ -44,39 +54,3 @@ $ rustcoder start <contest-name>
 ```
 
 該当コンテストページから必要な情報をスクレイピングによって抽出し、適切に生成する。
-
-## テストケース抽出
-
-ローカルテスト or デバッグの実行毎に抽出する。
-初回実行時にローカルに保存したほうがいいのか迷う。
-
-## ローカルテスト
-
-```
-$ rustcoder test <task-id>
-```
-
-問題ページから入出力例を抽出して、テストを行う
-
-## ローカルデバッグ
-
-```
-$ rustcoder dbg <task-id>
-```
-
-問題ページから入出力例を抽出して、デバッグを行う
-
-## ログイン
-
-```
-$ rustcoder login
-```
-
-実行後、ユーザー名・パスワードの入力を要求する。
-HTTPのセッション情報を保存(ログイン情報は保存しない)。
-
-## 解答提出
-
-```
-# rustcoder submit <task-id>
-```
