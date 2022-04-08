@@ -3,6 +3,12 @@ RustでAtCoderに参加する際のローカル環境を快適にするための
 
 何番煎じかは知りませんが、Rustの勉強がてら自分で実装してみたいと思った次第です。
 
+# Install
+
+```
+$ cargo install --git https://github.com/ryuma017/rustcoder
+```
+
 # Features
 
 実装予定の機能 / **TODO**
@@ -39,9 +45,16 @@ SUBCOMMANDS:
 $ rustcoder init [directory]
 ```
 
-default: atcoder_workspace
+```
+atcoder_workspace
+├── .cargo
+│   └── config.toml
+├── .git
+└── .gitignore
 
-以下のことを行う。
+```
+
+以下のことを行います。
 
 - コンテストごとのcargoパッケージを並べるためのワークスペース生成
 - Gitリポジトリ初期化
@@ -53,4 +66,15 @@ default: atcoder_workspace
 $ rustcoder start <contest-name>
 ```
 
-該当コンテストページから必要な情報をスクレイピングによって抽出し、適切に生成する。
+```
+<contest-name>
+├── Cargo.toml
+└── src
+    └── bin
+        ├── a.rs
+        ├── b.rs
+        ├── c.rs
+            ...
+```
+
+該当コンテストページから必要な情報をスクレイピングによって抽出し、必要なバイナリファイルを含んだcargoパッケージを生成します。
