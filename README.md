@@ -46,7 +46,7 @@ $ rustcoder init [directory]
 ```
 
 ```
-atcoder_workspace
+[directory(default: atcoder_workspace)]
 ├── .cargo
 │   └── config.toml
 ├── .git
