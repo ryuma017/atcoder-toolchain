@@ -39,10 +39,7 @@ pub fn init(opt: InitOptions) -> Result<()> {
     }
 
     // create `.gitignore`
-    fs::write(
-        dir.join(".gitignore"),
-        "/target\nCargo.lock\n/.cargo",
-    )?;
+    fs::write(dir.join(".gitignore"), "/target\nCargo.lock\n/.cargo")?;
 
     Ok(())
 }

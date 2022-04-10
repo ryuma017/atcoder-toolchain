@@ -29,7 +29,11 @@ fn default() -> anyhow::Result<()> {
 
 fn assert_does_cargo_configure_complete(workspace: &Path) {
     assert!(workspace.join(".cargo").is_dir());
-    assert!(workspace.join(".cargo").join("config").with_extension("toml").exists())
+    assert!(workspace
+        .join(".cargo")
+        .join("config")
+        .with_extension("toml")
+        .exists())
 }
 
 fn assert_does_git_setup_complete(workspace: &Path) {
