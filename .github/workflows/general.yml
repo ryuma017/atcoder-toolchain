@@ -21,6 +21,11 @@ jobs:
 
       - name: Install stable toolchain
         uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          profile: minimal
+          components: rustfmt
 
       - name: Rustfmt
         uses: actions-rs/cargo@v1
