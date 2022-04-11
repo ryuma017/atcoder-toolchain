@@ -46,12 +46,11 @@ $ rustcoder init [directory]
 ```
 
 ```
-[directory(default: atcoder_workspace)]
-├── .cargo
-│   └── config.toml
-├── .git
-└── .gitignore
-
+[directory](default: atcoder_workspace)
+    ├── .cargo
+    │   └── config.toml
+    ├── .git
+    └── .gitignore
 ```
 
 以下のことを行います。
@@ -68,13 +67,13 @@ $ rustcoder start <contest-name>
 
 ```
 <contest-name>
-├── Cargo.toml
-└── src
-    └── bin
-        ├── a.rs
-        ├── b.rs
-        ├── c.rs
-            ...
+    ├── Cargo.toml
+    └── src
+        └── bin
+            ├── a.rs
+            ├── b.rs
+            ├── c.rs
+                ...
 ```
 
 該当コンテストページから必要な情報をスクレイピングによって抽出し、必要なバイナリファイルを含んだcargoパッケージを生成します。
