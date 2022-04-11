@@ -1,6 +1,8 @@
 use std::path::Path;
 use std::time::Duration;
+use std::fs;
 
+use pretty_assertions::assert_eq;
 use tempfile::TempDir;
 // use pretty_assertions::assert_eq;
 
@@ -8,7 +10,7 @@ const TIMEOUT: Duration = Duration::from_secs(10);
 const WORKSPACE_DEFAULT_NAME: &str = "atcoder_workspace";
 
 #[test]
-fn default() -> anyhow::Result<()> {
+fn init_with_no_args() -> anyhow::Result<()> {
     let tempdir = TempDir::new()?;
 
     assert_cmd::Command::cargo_bin(env!("CARGO_PKG_NAME"))?
@@ -23,6 +25,30 @@ fn default() -> anyhow::Result<()> {
     assert!(workspace.is_dir());
     assert_does_cargo_configure_complete(&workspace);
     assert_does_git_setup_complete(&workspace);
+
+    Ok(())
+}
+
+#[test]
+fn init_in_an_existing_dir() -> anyhow::Result<()> {
+    let tempdir = TempDir::new()?;
+    fs::create_dir_all(tempdir.path().join("some/dir")).expect("Failed to create temporary directories to test.");
+
+
+    for d in [".", "some", "./some", "some/dir", "./some/dir"] {
+        assert_cmd::Command::cargo_bin(env!("CARGO_PKG_NAME"))?
+            .args(&["init", d])
+            .current_dir(tempdir.path())
+            .timeout(TIMEOUT)
+            .assert()
+            .success();
+
+        let existing_dir = tempdir.path().join(d);
+        println!("\n\n{}\n\n", existing_dir.display());
+        assert!(existing_dir.is_dir());
+        assert_does_cargo_configure_complete(&existing_dir);
+        assert_does_git_setup_complete(&existing_dir);
+    }
 
     Ok(())
 }
