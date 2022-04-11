@@ -2,7 +2,6 @@
 name = "rustcoder"
 version = "0.1.0"
 edition = "2021"
-author = ["ryuma017 <tgcrym01@gmail.com>"]
 description = "Convenient toolchain for AtCoder written in Rust"
 
 [dependencies]
