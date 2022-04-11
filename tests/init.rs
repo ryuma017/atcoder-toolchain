@@ -2,9 +2,8 @@ use std::fs;
 use std::path::Path;
 use std::time::Duration;
 
-use pretty_assertions::assert_eq;
+use anyhow::Context as _;
 use tempfile::TempDir;
-// use pretty_assertions::assert_eq;
 
 const TIMEOUT: Duration = Duration::from_secs(10);
 const WORKSPACE_DEFAULT_NAME: &str = "atcoder_workspace";
@@ -34,7 +33,7 @@ fn init_in_an_existing_dir() -> anyhow::Result<()> {
     for d in [".", "some", "./some", "some/dir", "./some/dir"] {
         let tempdir = TempDir::new()?;
         fs::create_dir_all(tempdir.path().join("some/dir"))
-            .expect("Failed to create temporary directories to test.");
+            .context("Failed to create temporary directories to test.")?;
 
         assert_cmd::Command::cargo_bin(env!("CARGO_PKG_NAME"))?
             .args(&["init", d])
