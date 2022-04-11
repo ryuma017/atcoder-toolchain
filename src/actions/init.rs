@@ -10,47 +10,38 @@ pub struct InitOptions {
 }
 
 pub fn init(opt: InitOptions) -> Result<()> {
-    // ここなんか汚い、直したほうが良さそう
-    let dir = match &opt.directory[..] {
-        "." => Path::new(&opt.directory),
-        _ => {
-            create_workspace_dir(&opt.directory)?;
-            Path::new(&opt.directory)
+    let dir = Path::new(&opt.directory);
+
+    if !dir.exists() {
+        fs::create_dir(dir)?;
+    }
+
+    // create `.cargo/config.toml` if it does not exist and write configuration to it
+    if !dir.join(".cargo").exists() {
+        fs::create_dir(dir.join(".cargo"))?;
+        fs::write(
+            dir.join(".cargo").join("config").with_extension("toml"),
+            "[build]\ntarget-dir = \"target\"",
+        )?;
+    }
+
+    // initialize empty git repository if it does not exist
+    if !dir.join(".git").exists() {
+        let is_succeed = Command::new("git")
+            .arg("init")
+            .arg(dir)
+            .arg("--quiet")
+            .status()?
+            .success();
+        if !is_succeed {
+            bail!("Failed to initialize empty Git repository")
         }
-    };
-
-    // create `.cargo` directory
-    fs::create_dir(dir.join(".cargo"))?;
-    // create `.cargo/config.toml`
-    fs::write(
-        dir.join(".cargo").join("config").with_extension("toml"),
-        "[build]\ntarget-dir = \"target\"",
-    )?;
-
-    // initialize empty git repository
-    let is_succeed = Command::new("git")
-        .arg("init")
-        .arg(dir)
-        .arg("--quiet")
-        .status()?
-        .success();
-    if !is_succeed {
-        bail!("Failed to initialize empty Git repository")
     }
 
-    // create `.gitignore`
-    fs::write(dir.join(".gitignore"), "/target\nCargo.lock\n/.cargo")?;
-
-    Ok(())
-}
-
-fn create_workspace_dir(path: &str) -> Result<()> {
-    let dir = Path::new(path);
-    if dir.is_dir() {
-        bail!("`{}` is already exists", dir.display())
+    // create `.gitignore` if it does not exist
+    if !dir.join(".gitignore").exists() {
+        fs::write(dir.join(".gitignore"), "/target\nCargo.lock\n/.cargo")?;
     }
-
-    fs::create_dir(dir)?;
 
     Ok(())
 }

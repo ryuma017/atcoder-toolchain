@@ -1,6 +1,6 @@
+use std::fs;
 use std::path::Path;
 use std::time::Duration;
-use std::fs;
 
 use pretty_assertions::assert_eq;
 use tempfile::TempDir;
@@ -31,11 +31,11 @@ fn init_with_no_args() -> anyhow::Result<()> {
 
 #[test]
 fn init_in_an_existing_dir() -> anyhow::Result<()> {
-    let tempdir = TempDir::new()?;
-    fs::create_dir_all(tempdir.path().join("some/dir")).expect("Failed to create temporary directories to test.");
-
-
     for d in [".", "some", "./some", "some/dir", "./some/dir"] {
+        let tempdir = TempDir::new()?;
+        fs::create_dir_all(tempdir.path().join("some/dir"))
+            .expect("Failed to create temporary directories to test.");
+
         assert_cmd::Command::cargo_bin(env!("CARGO_PKG_NAME"))?
             .args(&["init", d])
             .current_dir(tempdir.path())
@@ -44,7 +44,6 @@ fn init_in_an_existing_dir() -> anyhow::Result<()> {
             .success();
 
         let existing_dir = tempdir.path().join(d);
-        println!("\n\n{}\n\n", existing_dir.display());
         assert!(existing_dir.is_dir());
         assert_does_cargo_configure_complete(&existing_dir);
         assert_does_git_setup_complete(&existing_dir);
